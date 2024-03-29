@@ -35,6 +35,7 @@ Prediction: [92.0, 76.0, 400.0] -> Running
 The model file is located in the `model`directory. Feel free to customize the training data in the `data/` directory and modify `src/main.rs` as needed.
 
 ### Build the W3bstream prover
+By now see https://github.com/simonerom/depin-zk-test/tree/ai-test
 
 ### Deploy the test contract
 
