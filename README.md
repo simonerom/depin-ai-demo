@@ -4,7 +4,7 @@ A simple example demonstrating how to run an AI-based prover on W3bstream.
 
 ## Description
 
-The AI model is designed to predict whether a user is walking or running. It operates under the assumption that the user wears "smart shoes" equipped with two smart sensors connected via bluetooth to each other and to a mobile app. As the user walks, the main sensor measures the vertical force exerted by the feets, and record the interval in milliseconds between two consecutive steps. It then calculates average values across several steps and sends this information to the mobile app that in turn sends it to the W3bstream project. The W3bstream network 'proves' whether the user is currently walking or running through AI prediction and sends the proof to the project's contract.
+The AI model is designed to predict whether a user is walking or running. It operates under the assumption that the user wears 'smart shoes' equipped with two smart sensors. These sensors are connected via Bluetooth to each other and to a mobile app. As the user walks, the main sensor measures the vertical force exerted by the feet and records the interval in milliseconds between two consecutive steps. It then calculates average values across several steps and sends this information to the mobile app, which in turn sends it to the W3bstream project. The W3bstream network 'proves' whether the user is currently walking or running through AI prediction and sends the proof to the project's contract for tokenization.
 
 ## Requirements
 
