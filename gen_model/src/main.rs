@@ -11,6 +11,7 @@ use serde::Deserialize;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+use hex;
 
 
 #[derive(Debug, Deserialize)]
@@ -23,10 +24,10 @@ struct Record {
 
 fn main() {
     // Train and save the model    
-    save_model(&train_model("data/run_walk.csv").unwrap(), "model/run_walk.bin").unwrap();
+    save_model(&train_model("data/run_walk.csv").unwrap(), "model/run_walk.hex").unwrap();
 
     // Load the model
-    let knn = load_model("model/run_walk.bin");
+    let knn = load_model("model/run_walk.hex");
     
     // Example data point: [Right_Force, Left_Force, Interval_ms]
     let data_point = vec![92.0, 76.0, 400.0]; // Example features of a new data point
@@ -78,18 +79,27 @@ fn train_model(file_path: &str) -> Result<KNNClassifier<f32, usize, DenseMatrix<
 // Save the model to disk
 fn save_model(knn: &KNNClassifier<f32, usize, DenseMatrix<f32>, Vec<usize>, Euclidian<f32>>, file_name: &str) -> Result<(), Box<dyn Error>> {
     let knn_bytes = bincode::serialize(&knn).expect("Can not serialize the model");
+    let knn_hex = hex::encode(&knn_bytes);
+
     File::create(file_name)
-        .and_then(|mut f| f.write_all(&knn_bytes))
+        .and_then(|mut f| f.write_all(&knn_hex.as_bytes()))
         .expect("Can not persist model");
     Ok(())
 }
 
 // Load the model
 fn load_model(file_name: &str) -> KNNClassifier<f32, usize, DenseMatrix<f32>, Vec<usize>, Euclidian<f32>> {
-    let mut buf: Vec<u8> = Vec::new();
+    let mut hex_string = String::new();
+
     File::open(&file_name)
-        .and_then(|mut f| f.read_to_end(&mut buf))
+        .and_then(|mut f| f.read_to_string(&mut hex_string))
         .expect("Can not load model");
-    let knn = bincode::deserialize(&buf).expect("Can not deserialize the model");
+    
+    let buf = hex::decode(&hex_string) // Decode the hex string back into bytes
+    .expect("Failed to decode hex string");
+
+    let knn: KNNClassifier<f32, usize, DenseMatrix<f32>, Vec<usize>, Euclidian<f32>> = bincode::deserialize(&buf)
+        .expect("Cannot deserialize the model");
+    
     knn
 }
