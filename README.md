@@ -1,6 +1,16 @@
 # depin-ai-demo
 
-A simple example to demonstrate how to run an AI-based prover in W3nstream.
+A simple example demonstrating how to run an AI-based prover on W3bstream.
+
+## Description
+
+The AI model is designed to predict whether a user is walking or running. It operates under the assumption that the user wears "smart shoes" equipped with two smart sensors connected via bluetooth to each other (or to a mobile app in a less-trusted design). As the user walks, the main sensor measures the vertical force exerted by the feets, and record the interval in milliseconds between two consecutive steps. It then calculates average values across several steps and sends this information to the W3bstream project, which 'proves' whether the user is currently walking or running through AI prediction.
+
+## Requirements
+
+This demo is based on the **Smartcore** AI library for Rust, specifically **version 0.3.2**.
+
+It utilizes the KNN Classifier for simplicity, and no special optimization is included in this example. The dataset, training process, classifier, and optimizations can be easily adapted to create a model for other use cases, but such customizations are left as an exercise for the reader.
 
 ## Quick Start
 
@@ -11,7 +21,8 @@ cd gen_model
 cargo run
 ```
 
-You should see an output like: 
+You should see an output similar to:
+
 ```sh
 Finished dev [unoptimized + debuginfo] target(s) in 0.15s
      Running `target/debug/runner_ai`
@@ -21,7 +32,7 @@ Finished dev [unoptimized + debuginfo] target(s) in 0.15s
 Prediction: [92.0, 76.0, 400.0] -> Running
 ```
 
-The model file is located in the `model`directory. Feel free to customize the training data in the `data/` directory and customize `src/main.rs` accordingly.
+The model file is located in the `model`directory. Feel free to customize the training data in the `data/` directory and modify `src/main.rs` as needed.
 
 ### Build the W3bstream prover
 
