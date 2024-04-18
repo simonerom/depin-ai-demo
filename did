@@ -1,0 +1,19 @@
+{
+  "credential": {
+    "@context": "https://www.w3.org/2018/credentials/v1",
+    "id": "http://example.org/credentials/3731",
+    "type": [
+      "VerifiableCredential"
+    ],
+    "issuer": "did:key:z6MkjP2Pa1pkUgz2rP6yTXpATe4qd7ahwsGAQuU697JpcCLf",
+    "issuanceDate": "2020-08-19T21:41:50Z",
+    "credentialSubject": {
+      "id": "did:ethr:0x9d9250fb4e08ba7a858fe7196a6ba946c6083ff0"
+    }
+  },
+  "options": {
+    "verificationMethod": "did:key:z6MkjP2Pa1pkUgz2rP6yTXpATe4qd7ahwsGAQuU697JpcCLf#z6MkjP2Pa1pkUgz2rP6yTXpATe4qd7ahwsGAQuU697JpcCLf",
+    "proofPurpose": "assertionMethod",
+    "proofFormat": "jwt"
+  }
+}

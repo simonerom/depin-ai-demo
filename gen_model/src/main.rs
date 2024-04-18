@@ -30,7 +30,7 @@ fn main() {
     let knn = load_model("model/run_walk.hex");
     
     // Example data point: [Right_Force, Left_Force, Interval_ms]
-    let data_point = vec![92.0, 76.0, 400.0]; // Example features of a new data point
+    let data_point = vec![92.0, 76.0, 500.0]; // Example features of a new data point
 
     // Convert the data point to a DenseMatrix as expected by the predict method
     // Note: The data must be in the shape (n_samples, n_features),
@@ -39,11 +39,11 @@ fn main() {
 
     // Predict the class for the new data point
     let prediction = knn.predict(&data_matrix).expect("Failed to make prediction");
-    print!("Prediction: {:?} -> ", data_point);
+    print!("Example Prediction: {:?} -> ", data_point);
     if prediction[0] == 1 {
-        println!("Running");
+        println!("The user is Running");
     } else {
-        println!("Prediction: Walking");
+        println!("The user is Walking");
     }
 }
 
@@ -62,7 +62,7 @@ fn train_model(file_path: &str) -> Result<KNNClassifier<f32, usize, DenseMatrix<
     let x = DenseMatrix::from_2d_array(&features.chunks(3).collect::<Vec<_>>());
     let y = targets;
 
-    println!("********* Training  Model **********");
+    println!("\n********* Training  Model **********");
 
     // Splitting the dataset and training the KNN Classifier are omitted for simplicity
     // Here's how you might initialize a KNNClassifier with k=3 and Euclidean distance
@@ -84,6 +84,8 @@ fn save_model(knn: &KNNClassifier<f32, usize, DenseMatrix<f32>, Vec<usize>, Eucl
     File::create(file_name)
         .and_then(|mut f| f.write_all(&knn_hex.as_bytes()))
         .expect("Can not persist model");
+
+    println!("\nModel saved to: {}", file_name);
     Ok(())
 }
 
